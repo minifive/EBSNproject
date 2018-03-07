@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">	
+	<meta name="viewport" content="width=device-width,initial-scale=1" />
+	<title>首页</title>
+	<link rel="stylesheet" type="text/css" href="style/jquery.mobile-1.4.5.css">
+	<link rel="stylesheet" type="text/css" href="style/main.css">
+	<link rel="stylesheet" type="text/css" href="style/event.css">
+	<script type="text/javascript" src="js/src/jquery-1.11.3.js"></script>
+	<script type="text/javascript" src="js/src/jquery.mobile-1.4.5.js"></script>
+	<script type="text/javascript" src="js/src/jQuery.md5.js"></script>
+	<script type="text/javascript" src="js/foo.js"></script>
+	<script type="text/javascript" src="js/main.js"></script>
+
+	<link rel="stylesheet" href="style/themes/EBSN-theme.css" />
+  	<link rel="stylesheet" href="style/themes/jquery.mobile.icons.min.css" />
+	
+	<!-- 下拉刷新 -->
+	<script type="text/javascript" src="js/src/iscroll.js"></script>
+
+	<style>
+		#wrapper {
+		    position: absolute;
+		    z-index: 1;
+		    top:52px;
+		    bottom:0px;
+		    left: 0;
+		    width: 100%;
+		    overflow: hidden;
+		    padding: 0px;
+		    border:#000 solid 2px;
+		}
+		#list li{
+			height:100px;
+		}
+		#pullDown,#pullUp{
+			background: #FFF;
+			color:#000;
+			height:60px;
+			text-align: center;
+		}
+	</style>
+</head>
+<body>
+	<!-- main -->
+	<div data-role="page" id="main" >
+	<div data-role="header" class="head clearfix" data-position="fixed">
+
+		<a href="javascript:void(0);" data-icon="user" data-role="button" data-iconpos="notext" id="toolbar-btn"></a>
+		
+		<div data-role="controlgroup" data-type="horizontal" style="float:right">
+			<a href="#search" data-role="button" data-icon="search" data-iconpos="notext" >1</a>
+			<a href="javascript:void(0);" data-role="button" data-icon="bars" data-iconpos="notext" id="btn-group" class="log-btn">1</a>
+		</div>
+			<!-- 登录 登出 注册 -->		
+			<div id="log-group">
+			<ul>
+				<li><a href="#login">登录</a></li>
+				<li><a href="#register">注册</a></li>
+			</ul>
+			</div>
+
+	</div>
+	<div data-role="content" id="wrapper">
+		<div id="scroller">
+			
+		<div id="pullDown">
+			<span class="pullDownLabel">准备刷新...</span>
+		</div>
+		<ul data-role="listview" id="eventlist">
+			<li style="background-image:url(./img/1.jpg)"><a href="javascript:void(0);" data-ajax="false" >查看详情>></a><h1>活动1</h1><span class="event-info">活动简介活动简介</span><span class="event-date">xxxx-xx-xx~xxxx-xx-xx</span></li>	
+			<li style="background-image:url(./img/1.jpg)"><a href="javascript:void(0);" data-ajax="false" >查看详情>></a><h1>活动1</h1><span class="event-info">活动简介活动简介</span><span class="event-date">xxxx-xx-xx~xxxx-xx-xx</span></li>
+			<li style="background-image:url(./img/1.jpg)"><a href="javascript:void(0);" data-ajax="false" >查看详情>></a><h1>活动1</h1><span class="event-info">活动简介活动简介</span><span class="event-date">xxxx-xx-xx~xxxx-xx-xx</span></li>
+			<li style="background-image:url(./img/1.jpg)"><a href="javascript:void(0);" data-ajax="false" >查看详情>></a><h1>活动1</h1><span class="event-info">活动简介活动简介</span><span class="event-date">xxxx-xx-xx~xxxx-xx-xx</span></li>
+			<li style="background-image:url(./img/1.jpg)"><a href="javascript:void(0);" data-ajax="false" >查看详情>></a><h1>活动1</h1><span class="event-info">活动简介活动简介</span><span class="event-date">xxxx-xx-xx~xxxx-xx-xx</span></li>
+		</ul>
+		<div id="pullUp">
+			<span class="pullUpLabel">显示更多...</span>
+		</div>
+		</div>
+		<!-- 侧边栏 -->
+		<div id="toolbar" >
+			<div class="bar-head">
+				<h1 class="username">欢迎你！<span>用户昵称</span></h1>
+				<div class="head-box">
+				<a href="javascript:void(0);" id="user-head" target="_top"><img src="img/head.png" alt="001"></a>
+				</div>
+			</div>
+			<div class="bar-content">
+				<ul data-role="none">
+					<li><a href="display-event.html" target="_top">参与的活动</a></li>
+					<li><a href="display-group.html" target="_top">参与的群组</a></li>
+					<li><a href="user-setting.html" target="_top">个人设置</a></li>
+				</ul>
+			</div>
+		</div>
+	</div>
+	<div data-role="footer" data-position="fixed" id="footer">
+		<div data-role="navbar">
+		<ul>
+			<li><a href="create-event.html" data-icon="plus" data-ajax="false">发起活动</a></li>
+			<li><a href="#create-group" data-icon="user" >发起群组</a></li>
+			<li><a href="#inform" data-icon="gear" class="inform-btn">系统消息<i class="inform-num">0</i></a></li>
+		</ul>
+		</div>
+	</div>
+	<script type="text/javascript" src="js/main-events.js"></script>
+	<script type="text/javascript" src="js/main-scroll.js"></script>
+	</div>
+
+
+	<!-- 系统消息 -->
+	<div data-role="page" id="inform">
+		<div data-role="header">
+		<a href="##" data-rel="back" data-icon="back" data-iconpos="notext"></a>
+		<h1>系统消息</h1>		
+	</div>
+	<div data-role="content">
+		<ul data-role="listview" id="inform-list">
+<!-- 		<li>
+				<span class="inform-serial">1</span>
+				<p class="inform-content">系统消息内容</p>
+				<span class="inform-date">XXXX-XX-XX xx:xx:xx</span>
+				<div class="read-box">
+					<a href="javascript:void(0);" class="accept-btn" data-mini="true" data-role="button" data-inline="true">接受</a>
+					<a href="javascript:void(0);" class="refuse-btn" data-mini="true" data-role="button" data-inline="true">拒绝</a>
+					<a href="javascript:void(0);" class="read-btn" data-mini="true" data-role="button" data-inline="true">已阅</a>
+					<button data-inline="true" data-icon="delete" data-corners="true" data-iconpos="notext" class="del-btn"></button>
+				</div>
+				
+			</li>  -->
+	
+		</ul>
+	</div>
+	<script type="text/javascript" src="js/sys-inform.js"></script>
+	</div>
+	<!-- 搜索 -->
+	<div data-role="page" id="search">
+		<div data-role="header">
+		<a href="##" data-rel="back" data-icon="back" data-iconpos="notext"></a>
+		<h2>搜索活动</h2>
+		</div>
+		<div data-role="content">
+			<input type="search" name="keyword" id="keyword" placeholder="请输入活动关键词" required></input>
+			<input type="button" value="搜索" id="search-btn"></input>
+			
+			<div class="search-box">
+			<h3>搜索结果：</h3>
+			<ul id="search-list" data-role="listview">
+				<li><a href="javascript:void(0);"><h1></h1><span class="search-info"></span><span class="search-date"></span></a></li>
+				<li><a href="javascript:void(0);"><h1></h1><span class="search-info"></span><span class="search-date"></span></a></li>
+				<li><a href="javascript:void(0);"><h1></h1><span class="search-info"></span><span class="search-date"></span></a></li>
+				<li><a href="javascript:void(0);"><h1></h1><span class="search-info"></span><span class="search-date"></span></a></li>
+				<li><a href="javascript:void(0);"><h1></h1><span class="search-info"></span><span class="search-date"></span></a></li>
+			</ul>
+			</div>
+		</div>
+
+	<script type="text/javascript">
+	$('#search').on('pageshow',function(){
+
+
+		$('#search-btn').on('tap',function(){
+			var word = $('#keyword').val();
+			if(word==""){
+				alert("关键字不能为空！");
+			}else{
+				$.ajax({
+					url:'search.action',
+					type:'get',
+					data:{word:word},
+					dataType:'json',
+					success:function(result){
+						//default
+						$('.search-box').show();
+						$("#search-list li").hide();
+
+						if(result.searchlist.length==0){
+							$('.search-box h3').text("未找到对应结果");
+						}else{
+							$('.search-box h3').text("搜索结果：");
+							for(var k in result.searchlist){
+								var event = result.searchlist[k];
+								var start = dateDecode(event.starttime,"day");
+								var end = dateDecode(event.endtime,"day");
+
+								$("#search-list li:eq("+k+")").show();
+								$("#search-list li:eq("+k+") a h1").text(event.eventName)
+								.next().text(event.introduce)
+								.next().html(start+"</br>-"+end);
+								$("#search-list li:eq("+k+") a ").attr("event-id",event.eventId);
+							}
+						}
+						
+					},
+					error:function(result){	
+						alert('connect error!');
+					}
+				})
+			}
+		});
+
+		$("#search").on('tap','#search-list li a',function(){
+			var ID = $(this).attr("event-id");
+			location.href="event.html?ID="+ID;
+
+		})
+
+	})
+	</script>
+	</div>
+
+	<!-- 登录 -->
+	<div data-role="page" id="login">
+		<div data-role="header">
+			<a href="##" data-rel="back" data-icon="back" data-iconpos="notext"></a>
+			<h2>登录</h2>
+		</div>
+		<div data-role="content">
+			<input type="text" name="loginID" id="loginID" placeholder="请输入学号或教职工号" required></input>
+			<input type="password" name="loginPW" id="loginPW" placeholder="请输入密码" required></input>
+			<input type="button" value="登录" id="login-btn"></input>
+		</div>
+	</div>
+
+	<!-- 注册 -->
+	<div data-role="page" id="register">
+		<div data-role="header">
+			<a href="##" data-rel="back" data-icon="back" data-iconpos="notext"></a>
+			<h2>填写注册信息</h2>
+		</div>
+		<div data-role="content">		
+			<label for="ID">学号（教职工号）：<span id="id-tips"></span></label>
+			<input type="text" name="ID" id="ID" placeholder="请输入学号或教职工号" required></input>
+			<label for="username">昵称：（最多10个字符）</label>
+			<input type="text" name="username" id="username" maxlength="10" placeholder="请输入昵称" required></input>
+			<label for="password">密码：<span id="pw-tips" ></span></label>
+			<input type="password" name="password" id="password" placeholder="请输入密码" required></input>
+			<label for="re-password">确认密码：<span id="re-pw-tips" ></span></label>
+			<input type="password" name="re-password" id="re-password" placeholder="确认密码" required></input>
+			<label for="register-code">验证码：（区分大小写）</label>
+			<input type="text" name="register-code" id="register-code" placeholder="输入下方验证码" required></input>
+
+				<span id="code-box-r" class="code-box"></span>
+
+			<input type="button" value="注册" id="register-btn"></input>
+		</div>
+		
+	</div>
+	
+	<!-- 创建群组 -->
+	<div data-role="page" id="create-group">
+		<div data-role="header">
+			<a href="##" data-rel="back" data-icon="back" data-iconpos="notext"></a>
+			<h2>创建群组</h2>
+		</div>
+		<div data-role="content">
+				<label for="group-name">群组名称：（最多20个字符）</label>
+				<input type="text" name="group-name" id="group-name" placeholder="请输入群组名称" required maxlength="20"></input>
+				<label for="group-num">人数限制：(最多100人)</label>
+				<input type="number" name="group-num" id="group-num" max=100 value=30></input>
+				<label for="group-code">验证码：（区分大小写）</label>
+				<input type="text" name="group-code" id="group-code" placeholder="输入下方验证码" required></input>
+				<span id="code-box-g" class="code-box"></span>
+				<input type="button" value="创建" id="group-btn"></input>	
+			
+		</div>
+
+	<script>
+		$('#create-group').on('pageshow',function(){
+			//create-group
+			$('.code-box').text(createCode(4));
+    		$('#group-btn').on('tap',function(){
+
+    		var data = {
+    			name:$('#group-name').val(),
+    			number:$('#group-num').val()
+    		};
+
+    		if(data.name==''){
+    			alert('群组名不能为空！');
+    		}else if(data.number>100){
+    			alert('群组人数不能超过100！');
+    		}else if($('#group-code').val()!=$('#code-box-g').text()){
+    			alert('验证码错误，请重新输入');
+    			$('.code-box').text(createCode(4));
+    		}else{
+
+
+    			$.ajax({
+    				url:'creatgroup.action',
+    				type:'post',
+    				data:data,
+    				dataType:'json',
+    				success:function(result){
+    					if(result.returncode=="1"){
+    						alert("登录失效，跳转至登陆页");
+    						location.href="main.html#login";
+    					}else if(result.returncode=="2"){
+    						alert("群组名称已存在，请重新输入");
+    					}else{
+    						alert("创建成功！请等待系统管理员审核，审核结果会通过系统消息告知");
+    						location.href="main.html";
+    					}
+    				}
+
+    			})
+    		}
+    		
+    	});
+	})
+	</script>
+	</div>
+
+</body>
+
+</html>

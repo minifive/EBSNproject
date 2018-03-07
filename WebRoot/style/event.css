@@ -1,0 +1,76 @@
+#location{
+	width:90%;height:300px;margin:auto;
+}
+#info{
+	text-indent: 2em;
+}
+#event-name{
+	display: inline-block;
+	margin-right: 10px;
+}
+/* 评论区 */
+.comments li{
+	overflow: hidden;
+	display: block;
+}
+.user{
+	display: block;
+	float:left;
+	text-align: center;
+	cursor:pointer;
+}
+.user img{
+	display: block;
+	width:60px;
+	height:60px;
+	border:#CCC solid 1px;
+}
+.user span{
+	font:normal 14px/20px arial,sans-serif;
+}
+.text{
+	float:right;
+	width:75%;
+	height:90px;
+	position:relative;
+}
+.text p{
+	width:100%;
+	white-space:normal!important;
+	font:normal 16px/20px sans-serif!important;
+	margin: 0!important;
+}
+.text span{
+	position: absolute;
+	bottom:0;
+	right:10px;
+	font:normal 14px/20px sans-serif;
+	color:#555;
+}
+.text span i{
+	font-style: normal;
+	font-weight: bold;
+}
+
+#img-box{
+	margin: auto;
+	width:90%;
+	border: #CCC solid 1px;
+	padding: 4px;
+}
+#img-box img{
+	width:100%;
+	height:100%;
+}
+
+/* del-btn */
+#del-btn{
+	padding:8px;
+	border:#003456 solid 2px;
+	background: #CC0054;
+	color:#FFF;
+	font:bold 16px/20px sans-serif;
+	text-decoration: none;
+	border-radius: 10px;
+	display: none;
+}

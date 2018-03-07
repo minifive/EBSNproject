@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width,initial-scale=1" />
+	<title>个人信息展示页</title>
+	<link rel="stylesheet" type="text/css" href="style/jquery.mobile-1.4.5.css">
+	<link rel="stylesheet" type="text/css" href="style/main.css">
+	<link rel="stylesheet" href="style/themes/EBSN-theme.css" />
+    <link rel="stylesheet" href="style/themes/jquery.mobile.icons.min.css" />
+	<script type="text/javascript" src="js/src/jquery-1.11.3.js"></script>
+	<script type="text/javascript" src="js/src/jquery.mobile-1.4.5.js"></script>
+
+	<script type="text/javascript" src="js/foo.js"></script>
+	<style>
+		
+	</style>
+</head>
+	
+<body>
+	<div data-role="page" id="display">
+	<div data-role="header" data-position="fixed">
+		<a href="##" data-rel="back" data-icon="back" data-iconpos="notext"></a>
+		<h1>个人信息</h1>
+		<a href="main.html" data-ajax="false" data-icon="home" data-iconpos="notext"></a>
+	</div>
+	<div data-role="content" class="content">
+		<div class="head-box">
+			<img src="img/avator/default.jpg" alt="userHead" />
+		</div>
+		<h2>用户昵称</h2>
+		<h4>学号</h4>
+		<h3>tel:<span>XXXX</span></h3>
+		
+	</div>
+	<div data-role="footer" data-position="fixed">
+		<div data-role="navbar">
+		<ul>
+			<li><a href="tel:10086" data-icon="phone" class="foot-btn" id="dial">拨打电话</a></li>
+			<li><a href="sms:10086" data-icon="mail" class="foot-btn" id="mail">发送短信</a></li>
+		</ul>
+		</div>
+	</div>
+
+	<script>
+	//加载 page：display触发，必须放在#display下
+	$('#display').on('pageshow',function(){
+
+		//get user info
+		var ID = getUrlParam("ID");
+		console.log(ID);
+		if(ID!=""){
+			$.ajax({
+			url:'getuserimf.action',
+			type:'get',
+			dataType:'json',
+			data:{ID:ID},
+			success:function(result){
+				if(result.returncode=="0"){
+					alert("无对应用户信息！");
+					history.go(-1);
+				}
+				else{
+					var user = result.user;
+					$('.head-box img').attr('src',"./img/avator/"+user.headport).attr('alt',user.headport);
+					$('.content h2').text(user.username);
+					$('.content h4').text(user.userid);
+					$('.content h3 span').text(user.phone);
+					$('#dial').attr('href','tel:'+user.phone);
+					$('#mail').attr('href','sms:'+user.phone);
+					
+				}
+			},
+			error:function(result){
+				alert('connect error!');
+			}
+		})
+
+		}else{
+			alert('参数错误');
+		}
+
+	});
+	</script>
+</div>
+
+</body>
+</html>

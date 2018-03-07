@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">	
+	<meta name="viewport" content="width=device-width,initial-scale=1" />
+	<title>发起活动页</title>
+	<link rel="stylesheet" type="text/css" href="style/jquery.mobile-1.4.5.css">
+	<link rel="stylesheet" type="text/css" href="style/main.css">
+	<script type="text/javascript" src="js/src/jquery-1.11.3.js"></script>
+	<script type="text/javascript" src="js/src/jquery.mobile-1.4.5.js"></script>
+	<script type="text/javascript" src="http://webapi.amap.com/maps?v=1.3&key=4a5bc3bb2272553b7afa8d578fa9062a"></script>
+    
+    <link rel="stylesheet" href="style/themes/EBSN-theme.css" />
+    <link rel="stylesheet" href="style/themes/jquery.mobile.icons.min.css" />
+    <script type="text/javascript" src="js/src/ajaxfileupload.js"></script>
+	<style>
+		 #container{
+             width:90%;height:300px;margin:auto;
+         }
+        .preview-img{
+            max-width:90%;
+            margin:10px auto;
+            display:block;
+            border:#CCC solid 1px;
+        }
+        .head-img{
+            border-radius:50%;
+            max-width: 90%;
+            display: block;
+            margin:10px auto;
+        }
+        #num-box{
+            vertical-align: text-bottom;
+            margin-left: 10px;
+            width:50%;
+        }
+        #num-box .ui-input-text{
+            width:66%;
+        }
+        #group-limit-label{
+            position:relative;
+        }
+        #group-box{
+            position:absolute;
+            top:10px;
+            right:-20px;
+        }
+        #group{
+            vertical-align:super;
+        }
+        #group-box .ui-select{
+            margin:0;
+        }
+        #locate-list{
+            margin: 10px auto;
+        }
+        #locate-list,#locate-list option{
+            display: none;
+        }
+        #error-tips{
+            text-align: center;
+            display: none;
+        }
+        #info{
+            min-height:100px;
+        }
+        #words-limit{
+            color:#fff56b;
+            font-weight: bold;
+        }
+	</style>
+</head>
+<body>
+	<div data-role="header" data-position="fixed">
+		<a href="##" data-rel="back" data-icon="back" data-iconpos="notext"></a>
+		<h1>发起活动</h1>
+        <a href="main.html" data-ajax="false" data-icon="home" data-iconpos="notext"></a>
+	</div>
+	<div data-role="content">
+	<form>
+		<label for="eventname">主题：（最多20个字符）</label>
+		<input type="text" name="eventname" id="eventname" placeholder="请输入活动主题" maxlength="20"></input>
+		<label for="startDate">活动开始时间：</label>
+		<input type="datetime-local" name="startDate" id="startDate"></input>
+		<label for="endDate">活动结束时间：</label>
+		<input type="datetime-local" name="endDate" id="endDate"></input>
+		<label for="location">活动地点：</label>
+		<input type="text" name="location" id="location" placeholder="在此输入地点"></input>
+        <select name="locate-list" id="locate-list" data-role="none">
+            <option value=""></option>
+            <option value=""></option>
+            <option value=""></option>
+            <option value=""></option>
+            <option value=""></option>
+        </select>
+        <h5 id="error-tips">未找到相应地点</h5>
+		<div id="container"></div>
+        
+        <label for="group-limit">是否限制群组</label>
+            <select name="group-limit" id="group-limit" data-role="slider">
+              <option value="false" selected="selected">否</option>
+              <option value="true">是</option>
+            </select>
+        <div id="group-box" style="display:none" >
+            <select name="group" id="group" data-role="none">
+                <!-- <option value="group1" selected="selected">群组1</option>
+                <option value="group2">群组2</option>
+                <option value="group3">群组3</option> -->
+            </select>
+        </div>
+
+		<label for="person-limit">是否有人数限制：</label>
+	        <select name="person-limit" id="person-limit" data-role="slider">
+	          <option value="false" selected="selected">否</option>
+              <option value="true">是</option>
+	          
+	        </select>
+	    <div id="num-box" style="display: none">
+	    	<input type="number" name="person-num" id="person-num" data-inline="true" placeholder="请输入人数"></input>
+	    </div>
+	    
+		<label for="pic">海报：（jpg，jpeg，png格式）</label>
+		<input type="file" name="pic" id="pic" accept="image/png,image/jpg,image/jpeg"></input>
+        <button id="upload-btn" style="display:none">上传海报</button>
+		<label for="info">活动介绍：还可输入 <span id="words-limit">200</span> 字</label>
+		<textarea name="info" id="info" placeholder="请输入介绍，限制200字,包括空格和换行符" maxlength="200"></textarea>
+
+	<button id="complete-btn">确定</button>
+	</form>
+	</div>
+    <script src="js/create-event.js"></script>
+</body>
+</html>

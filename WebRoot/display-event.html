@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width,initial-scale=1" />
+	<title>参与的活动</title>
+	<link rel="stylesheet" type="text/css" href="style/jquery.mobile-1.4.5.css">
+	<link rel="stylesheet" type="text/css" href="style/main.css">
+
+	<script type="text/javascript" src="js/src/jquery-1.11.3.js"></script>
+	<script type="text/javascript" src="js/src/jquery.mobile-1.4.5.js"></script>
+	<script type="text/javascript" src="js/foo.js"></script>
+
+	<link rel="stylesheet" href="style/themes/EBSN-theme.css" />
+    <link rel="stylesheet" href="style/themes/jquery.mobile.icons.min.css" />
+
+    <style>
+
+		#event-list li h1{
+			font:bold 20px/24px sans-serif;
+			width:60%;
+		}
+		.eventinfo{
+			font:normal 16px/16px sans-serif;
+			display: block;
+			overflow: hidden;
+			width:60%;
+		}
+		.eventdate{
+			position:absolute;
+			bottom:18px;
+			right:30px;
+			font: normal 14px/20px sans-serif;
+		}
+    </style>
+</head>
+<body>
+	<div data-role="header" data-position="fixed">
+		<a href="##" data-rel="back" data-icon="back" data-iconpos="notext"></a>
+		<h1>我参与的活动</h1>
+		<a href="main.html" data-ajax="false" data-icon="home" data-iconpos="notext"></a>
+	</div>
+	<div data-role="content">
+		<ul data-role="listview" id="event-list">
+			
+		</ul>
+		<h3 id="wait-num">当前有<span></span>个活动待审核</h3>
+	</div>
+	<script>
+		$(document).ready(function(){
+
+			//get event-list
+			$.ajax({
+				url:'getuserevents.action',
+				type:'get',
+				data:{},
+				dataType:'json',
+				success:function(result){
+					if(result.returncode=="1"){
+						alert("登录失效，跳转首页");
+						location.href="main.html";
+					}else if(result.returncode=="2"){
+						var tips = "<h1>您当前没有报名任何活动</h1>";
+						$('#event-list').html($.parseHTML(tips));
+						$('#wait-num').hide();
+					}else{
+
+						var cont ="";
+						for(var k in result.eventList){
+							var event = result.eventList[k];
+							var start = dateDecode(event.starttime,"day");
+							var end = dateDecode(event.endtime,"day");
+							var li = "<li class='ui-child' style='display: block;'><a href='javascript:void(0);' class='ui-btn ui-btn-icon-right ui-icon-carat-r' event-id='"+
+								event.eventId+"'><h1>"+
+								event.eventName+"</h1><span class='eventinfo'>"+
+								event.introduce+"</span><span class='eventdate'>"+
+								start+"<br>-"+end+"</span></a></li>";
+							cont+=li;
+						}
+
+						$('#event-list').html(cont);
+						$('#wait-num').show().find('span').text(result.auditing);
+
+					}
+				},
+				error:function(result){
+					alert('connect error!');
+				}
+
+			});
+
+
+			//event-》event.html
+    	$(document).on('tap','#event-list li a',function(){
+    		var id = $(this).attr('event-id');
+    		location.href = "event.html?ID="+id;
+    	})
+		});
+	</script>
+</body>
+</html>

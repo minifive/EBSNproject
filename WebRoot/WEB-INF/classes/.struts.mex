@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Struts2Diagram version="2.0">
+  <package name="demo" location="10,19" size="217,861">
+    <action name="hello" location="44,102" size="150,41">
+      <result name="success">
+        <resourceEdge source="success" routing="0" target="user-setting.html" />
+      </result>
+    </action>
+    <action name="authority" location="0,0" size="0,0" />
+    <action name="login" location="41,42" size="150,41" />
+    <action name="logout" location="0,0" size="0,0" />
+    <action name="regist" location="37,178" size="150,40" />
+    <action name="updateimf" location="11,561" size="150,40" />
+    <action name="uploadimg" location="15,315" size="150,40" />
+    <action name="createvent" location="41,244" size="150,40" />
+    <action name="getusergroups" location="0,0" size="0,0" />
+    <action name="getevents" location="26,370" size="150,40" />
+    <action name="groupusers" location="11,611" size="150,41">
+      <result name="success">
+        <resourceEdge source="success" routing="0" target="main.html" />
+      </result>
+    </action>
+    <action name="addgumap" location="11,711" size="150,40" />
+    <action name="setmsgstate" location="0,0" size="0,0" />
+    <action name="delgumap" location="11,761" size="150,40" />
+    <action name="deleumap" location="0,0" size="0,0" />
+    <action name="deleumapo" location="0,0" size="0,0" />
+    <action name="creatgroup" location="11,811" size="150,40" />
+    <action name="getsysmsg" location="0,0" size="0,0" />
+    <action name="showcomments" location="51,434" size="150,40" />
+    <action name="getuserevents" location="58,490" size="150,40" />
+    <action name="getuserimf" location="32,665" size="150,40" />
+    <action name="geteventimf" location="0,0" size="0,0" />
+    <action name="addeumap" location="0,0" size="0,0" />
+    <action name="uploadposter" location="0,0" size="0,0" />
+    <action name="addcomment" location="0,0" size="0,0" />
+    <action name="eventusers" location="0,0" size="0,0" />
+    <action name="getgroupimf" location="0,0" size="0,0" />
+    <action name="ivtgroupmsg" location="0,0" size="0,0" />
+    <action name="ivteventmsg" location="0,0" size="0,0" />
+    <action name="acceptevent" location="0,0" size="0,0" />
+    <action name="acceptgroup" location="0,0" size="0,0" />
+    <action name="delgumapo" location="0,0" size="0,0" />
+    <action name="delsysmsg" location="0,0" size="0,0" />
+    <action name="search" location="0,0" size="0,0" />
+    <action name="agreeevent" location="169,559" size="150,40" />
+  </package>
+  <webResource name="index.jsp" path="/index.jsp" location="560,10" size="150,55" />
+  <webResource name="user-setting.html" path="/user-setting.html" location="681,98" size="150,55" />
+  <webResource name="main.html" path="/main.html" location="350,209" size="150,55" />
+</Struts2Diagram>
+

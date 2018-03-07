@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width,initial-scale=1" />
+	<title>个人设置页</title>
+	<link rel="stylesheet" type="text/css" href="style/jquery.mobile-1.4.5.css">
+	<link rel="stylesheet" type="text/css" href="style/main.css">
+	<link rel="stylesheet" href="style/themes/EBSN-theme.css" />
+    <link rel="stylesheet" href="style/themes/jquery.mobile.icons.min.css" />
+	<script type="text/javascript" src="js/src/jquery-1.11.3.js"></script>
+	<script type="text/javascript" src="js/src/jquery.mobile-1.4.5.js"></script>
+	<script type="text/javascript" src="js/src/ajaxfileupload.js"></script>
+	<script type="text/javascript" src="js/src/jQuery.md5.js"></script>
+	<style>
+		.preview-img{
+			max-width:90%;
+			margin:10px auto;
+			display:block;
+			border:#CCC solid 1px;
+		}
+		.head-img{
+			border-radius:50%;
+			max-width: 90%;
+			display: block;
+			margin:10px auto;
+		}
+
+	</style>
+</head>
+<body>
+	<div data-role="header" data-position="fixed">
+		<a href="##" data-rel="back" data-icon="back" data-iconpos="notext"></a>
+		<h1>个人设置</h1>
+		<a href="main.html" data-ajax="false" data-icon="home" data-iconpos="notext"></a>
+	</div>
+	<div data-role="content">
+		<div id="head-box">
+				<label for="userHead">头像：（jpg，jpeg，png格式）</label>
+				<input type="file" name="userHead" id="userHead" accept="image/png,image/jpg,image/jpeg"></input>
+				<button id="upload-btn">上传图片</button>
+		</div>
+			<label for="userName">昵称：（最多10个字符）</label>
+			<input type="text" name="userName" id="userName" maxlength="10"></input>
+			<label for="o-password">旧密码：</label>
+			<input type="password" name="o-password" id="o-password"></input>
+			<label for="password">新密码：<span id="pw-tips" ></span></label>
+			<input type="password" name="password" id="password" min="6"></input>
+			<label for="re-password">确认新密码：<span id="re-pw-tips" ></span></label>
+			<input type="password" name="re-password" id="re-password"></input>
+			<label for="phone">联系电话：</label>
+			<input type="tel" name="phone" id="phone"></input>
+
+			<input type="button" id="submit-btn" value="确认"></input>
+	</div>
+</body>
+<script type="text/javascript" src="js/user-setting.js"></script>
+</html>

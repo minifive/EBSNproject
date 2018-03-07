@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width,initial-scale=1" />
+	<title>活动主题页</title>
+	<link rel="stylesheet" type="text/css" href="style/jquery.mobile-1.4.5.css">
+	<link rel="stylesheet" type="text/css" href="style/main.css">
+	<link rel="stylesheet" type="text/css" href="style/event.css">
+	<script type="text/javascript" src="js/src/jquery-1.11.3.js"></script>
+	<script type="text/javascript" src="js/src/jquery.mobile-1.4.5.js"></script>
+	<script type="text/javascript" src="js/foo.js"></script>
+	<script type="text/javascript" src="http://webapi.amap.com/maps?v=1.3&key=4a5bc3bb2272553b7afa8d578fa9062a"></script>
+	<link rel="stylesheet" href="style/themes/EBSN-theme.css" />
+    <link rel="stylesheet" href="style/themes/jquery.mobile.icons.min.css" />
+</head>
+<body>
+	<div data-role="page" id="main" data-position="fixed">
+	<div data-role="header">
+		<a href="##" data-rel="back" data-icon="back" data-iconpos="notext"></a>
+		<h1>活动主题</h1>
+		<a href="main.html" data-ajax="false"data-icon="home" data-iconpos="notext"></a>
+	</div>
+	<div data-role="content">
+		<h2 id="event-name">活动名称活动名称活动名称</h2><a href="javascript:void(0);" id="del-btn" data-role="none">删除活动</a>
+		<h4>活动时间:</br><span id="start-date">2016年3月10日</span>&nbsp-&nbsp<span id="end-date">2016年3月15日</span></h4>
+		<div id="img-box"><img src="" alt="背景图片"></div>
+		<h4>活动介绍：</h4>
+			<p id="event-info">我是活动介绍我是活动介绍我是活动介绍我是活动介绍我是活动介绍我是活动介绍
+				我是活动介绍我是活动介绍我是活动介绍我是活动介绍</p>
+		<h4>活动地点:<span id="locate-point"></span></h4>
+		<div id="location"></div>
+		<h4>参与人数:<span id="attend-num">10</span>/<span id="all-num">20</span>人</h4>
+		<a href="javascript:void(0);" data-role="button" id="members-btn">查看成员</a>
+		</hr>
+
+		<h4>活动评论:</h4>
+		<ul data-role="listview" class="comments">
+			<!-- <li>js实现点击头像跳转个人信息
+				<div class="user" data-ajax="false">
+					<img src="" alt="user-head"/>
+					<span></span>
+				</div>
+				<div class="text">
+					<p></p>
+					<span>评论于<i class="comment-date"></i></span>
+				</div>
+			</li>
+			<li>
+				<div class="user">
+					<img src="" alt="user-head"/>
+					<span></span>
+				</div>
+				<div class="text">
+					<p></p>
+					<span>评论于<i class="comment-date"></i></span>
+				</div>
+			</li>
+			<li>
+				<div class="user">
+					<img src="" alt="user-head"/>
+					<span></span>
+				</div>
+				<div class="text">
+					<p></p>
+					<span>评论于<i class="comment-date"></i></span>
+				</div>
+			</li>
+			<li>
+				<div class="user">
+					<img src="" alt="user-head"/>
+					<span></span>
+				</div>
+				<div class="text">
+					<p></p>
+					<span>评论于<i class="comment-date"></i></span>
+				</div>
+			</li>
+			<li>
+				<div class="user">
+					<img src="" alt="user-head"/>
+					<span></span>
+				</div>
+				<div class="text">
+					<p></p>
+					<span>评论于<i class="comment-date"></i></span>
+				</div>
+			</li> -->
+		</ul>
+
+	</div>
+
+	<div data-role="footer" data-position="fixed" id="footer">
+		<div data-role="navbar">
+			<ul>
+				<li><a href="javascript:void(0);" id="join-btn" data-icon="heart" data-iconpos="bottom">报名</a></li>
+				<li><a href="javascript:void(0);" id="exit-btn" data-icon="alert" data-iconpos="bottom">退出</a></li>
+				<li><a href="#edit" id="edit-btn" data-icon="comment" data-iconpos="bottom">发表评论</a></li>
+			</ul>
+		</div>
+	</div>
+
+	<script type="text/javascript" src="http://webapi.amap.com/maps?v=1.3&key=4a5bc3bb2272553b7afa8d578fa9062a"></script> 
+	<script src="js/event.js"></script>
+	</div>
+
+	<!-- 评论编辑 -->
+	<div data-role="page" id="edit">
+		<div data-role="header">
+			<a href="##" data-rel="back" data-icon="back" data-iconpos="notext"></a>
+			<h1>编辑评论</h1>
+		</div>
+		<div data-role="content">
+			<textarea name="comment" id="comment" placeholder="这里输入评论" maxlength="100" required></textarea>
+			<p>还可输入<span id="words-limit">100</span> 字</p>
+			<button id="submit-btn">发表评论</button>
+		</div>
+	<script type="text/javascript">
+	$("#edit").on("pageshow",function(){
+
+		//字数限制
+		$('#comment').bind('input propertychange',function(){
+	        var all = 100;
+	        var left = all - $(this).val().length;
+	        $('#words-limit').text(left);
+    	})
+
+		//发表评论
+
+	    $('#submit-btn').on('tap',function(){
+	    	var text = $('#comment').val();
+	    	var ID = getUrlParam("ID");
+	    	if(text==""){
+	    		alert('评论不能为空！');
+	    	}else{
+	    		//get text
+	    		$.ajax({
+	    			url:'addcomment.action',
+	    			type:'get',
+	    			dataType:'json',
+	    			data:{comment:text,ID:ID},
+	    			success:function(result){
+	    				if(result.returncode=="1"){
+	    					alert("登录失效，正在返回主页");
+	    					location.href = "main.html";
+	    				}else{
+	    					alert("评论成功！");
+	    					location.href = "event.html?ID="+ID;
+	    				}
+	    				
+	    			},
+	    			error:function(result){
+	    				alert('connect error!');
+	    			}
+	    		});
+		
+	    	}
+	    });
+
+	})
+
+	</script>
+	
+	</div>
+
+</body>
+
+</html>

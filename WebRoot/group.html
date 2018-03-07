@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">	
+	<meta name="viewport" content="width=device-width,initial-scale=1" />
+	<title>管理群组页(活动，成员)</title>
+	<link rel="stylesheet" type="text/css" href="style/jquery.mobile-1.4.5.css">
+	<link rel="stylesheet" type="text/css" href="style/main.css">
+	<link rel="stylesheet" href="style/themes/EBSN-theme.css" />
+    <link rel="stylesheet" href="style/themes/jquery.mobile.icons.min.css" />
+	<script type="text/javascript" src="js/src/jquery-1.11.3.js"></script>
+	<script type="text/javascript" src="js/src/jquery.mobile-1.4.5.js"></script>
+	<script type="text/javascript" src="js/foo.js"></script>
+		<style>
+		#members-list li{
+			position:relative;
+			text-align:center;
+		}
+		#eventlist li{
+			display:none;
+		}	
+		.kick-btn{
+			position:absolute;
+			bottom:50%;
+			right:10px;
+		}
+		#group-name{
+			display:inline-block;
+			margin-right:10px;
+		}
+		/* del-btn */
+		#del-btn{
+			/* display: inline-block;  */
+			margin-left: 10px;
+			padding:8px;
+			border:#003456 solid 2px;
+			background: #CC0054;
+			color:#FFF;
+			font:bold 16px/20px sans-serif;
+			text-decoration: none;
+			border-radius: 10px;
+			display: none;
+		}
+	</style>
+</head>
+<body>
+	<div data-role="page" id="main">
+	<div data-role="header" data-position="fixed">
+		<a href="##" data-rel="back" data-icon="back" data-iconpos="notext"></a>
+		<h2>管理群组</h2>
+		<a href="main.html" data-ajax="false" data-icon="home" data-iconpos="notext"></a>
+	</div>
+	<div data-role="content">
+		<h3 id="group-name">group name</h3>
+		<a href="javascript:void(0);" id="del-btn" data-role="none">删除群组</a>
+		<h4>群主:<span id="builder"></span></h4>
+		
+		<h4>活动列表：</h4>
+		<ul data-role="listview" id="eventlist">
+			<li style="background-image:url(./img/1.jpg)"><a href="javascript:void(0);" data-ajax="false" >查看详情>></a><h1>活动1</h1><span class="event-info">活动简介活动简介</span><span class="event-date">xxxx-xx-xx~xxxx-xx-xx</span></li>
+			<li style="background-image:url(./img/1.jpg)"><a href="javascript:void(0);" data-ajax="false" >查看详情>></a><h1>活动1</h1><span class="event-info">活动简介活动简介</span><span class="event-date">xxxx-xx-xx~xxxx-xx-xx</span></li>
+			<li style="background-image:url(./img/1.jpg)"><a href="javascript:void(0);" data-ajax="false" >查看详情>></a><h1>活动1</h1><span class="event-info">活动简介活动简介</span><span class="event-date">xxxx-xx-xx~xxxx-xx-xx</span></li>
+			<li style="background-image:url(./img/1.jpg)"><a href="javascript:void(0);" data-ajax="false" >查看详情>></a><h1>活动1</h1><span class="event-info">活动简介活动简介</span><span class="event-date">xxxx-xx-xx~xxxx-xx-xx</span></li>
+			<li style="background-image:url(./img/1.jpg)"><a href="javascript:void(0);" data-ajax="false" >查看详情>></a><h1>活动1</h1><span class="event-info">活动简介活动简介</span><span class="event-date">xxxx-xx-xx~xxxx-xx-xx</span></li>
+		</ul>
+		</br>
+		<h4>成员列表：<span id="exist"></span>人&nbsp/&nbsp<span id="all"></span>人</h4>
+		<ul data-role="listview" id="memberlist">
+			<!-- 默认第一个为发起人 -->
+			<li>
+				<a href="javascript:void(0);" class="builder" data-role="none"><h1 class="name">发起人：</h1><h4 class="tel"></h4></a>
+			</li>
+			<!-- <li>
+				<a href="javascript:void(0);" class="member"><h1 class="name">用户昵称</h1><h4 class="tel">18012345678</h4></a>
+				<button data-role="none" class="kick-btn">踢出</button>
+			</li>
+			<li>
+				<a href="javascript:void(0);" class="member"><h1 class="name">用户昵称</h1><h4 class="tel">18012345678</h4></a>
+				<button data-role="none" class="kick-btn">踢出</button>
+			</li> -->
+		</ul>
+	</div>
+	<div data-role="footer" data-position="fixed" id="footer">
+		<div data-role="navbar">
+		<ul>
+			<li><a href="#invite" data-icon="plus">邀请用户</a></li>
+			<li><a href="javascript:void(0);" data-icon="alert" id="exit-btn">退出</a></li>
+		</ul>
+		</div>
+	</div>
+	
+	<script type="text/javascript" src="js/group.js"></script>
+	</div>
+
+	<div data-role="page" id="invite">
+		<div data-role="header">
+			<a href="#main"  data-icon="back" data-iconpos="notext"></a>
+			<h2>邀请用户</h2>
+		</div>
+		
+			<input type="text" name="invite-id" id="invite-id" placeholder="请输入用户学号或教职工号" required></input>
+			<input type="button" value="确定邀请" id="invite-btn"></input>
+	
+	<script>
+		$('#invite').on('pageinit',function(){
+			var ID = getUrlParam("ID");
+
+			$('#invite-btn').on('tap',function(){
+				//$(this).unbind();
+				var id = $('#invite-id').val();
+				console.log(ID+"|"+id);
+				if(id==""){
+					alert("请输入邀请用户学号或教职工号");
+				}else{
+
+					$.ajax({
+						url:'ivtgroupmsg.action',
+						type:'get',
+						data:{groupid:ID,inviteid:id},
+						dataType:'json',
+						success:function(result){
+							if(result.returncode=="0"){
+								alert("查无此用户，请重新输入");
+							}else if(result.returncode=="1"){
+								alert("登录失效，跳转首页");
+								location.href="main.html";
+							}else if(result.returncode=="2"){
+								alert("该用户已在群组中");
+							}else if(result.returncode=="3"){
+								alert("群组人数已满");
+							}else{
+								alert("已发送邀请信息");
+
+							}
+						},
+						error:function(result){
+							alert("connect error!");
+						}
+					})
+				}
+
+			})
+
+		});
+
+	</script>
+	</div>
+</body>
+</html>

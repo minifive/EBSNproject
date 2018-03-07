@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width,initial-scale=1" />
+	<title>参与的群组</title>
+	<link rel="stylesheet" type="text/css" href="style/jquery.mobile-1.4.5.css">
+	<link rel="stylesheet" type="text/css" href="style/main.css">
+	<script type="text/javascript" src="js/src/jquery-1.11.3.js"></script>
+	<script type="text/javascript" src="js/src/jquery.mobile-1.4.5.js"></script>
+	<script type="text/javascript" src="js/foo.js"></script>
+	<link rel="stylesheet" href="style/themes/EBSN-theme.css" />
+    <link rel="stylesheet" href="style/themes/jquery.mobile.icons.min.css" />
+	<style>
+		#grouplist li{
+			display: none;
+		}
+	</style>
+</head>
+<body>
+	<div data-role="header" data-position="fixed">
+		<a href="##" data-rel="back" data-icon="back" data-iconpos="notext"></a>
+		<h1>我参与的群组</h1>
+		<a href="main.html" data-ajax="false" data-icon="home" data-iconpos="notext"></a>
+	</div>
+	<div data-role="content">
+		<ul data-role="listview" id="grouplist">
+			<!-- <li><a href="javascript:void(0);"><h1>群组1</h1><h4 class="person">当前人数：<span class="exist"></span>&nbsp&nbsp总人数：<span class="all"></span></h4></a></li>
+			<li><a href="javascript:void(0);"><h1>群组1</h1><h4 class="person">当前人数：<span class="exist"></span>&nbsp&nbsp总人数：<span class="all"></span></h4></a></li>
+			<li><a href="javascript:void(0);"><h1>群组1</h1><h4 class="person">当前人数：<span class="exist"></span>&nbsp&nbsp总人数：<span class="all"></span></h4></a></li>
+			<li><a href="javascript:void(0);"><h1>群组1</h1><h4 class="person">当前人数：<span class="exist"></span>&nbsp&nbsp总人数：<span class="all"></span></h4></a></li>
+			<li><a href="javascript:void(0);"><h1>群组1</h1><h4 class="person">当前人数：<span class="exist"></span>&nbsp&nbsp总人数：<span class="all"></span></h4></a></li>
+			<li><a href="javascript:void(0);"><h1>群组1</h1><h4 class="person">当前人数：<span class="exist"></span>&nbsp&nbsp总人数：<span class="all"></span></h4></a></li>
+			<li><a href="javascript:void(0);"><h1>群组1</h1><h4 class="person">当前人数：<span class="exist"></span>&nbsp&nbsp总人数：<span class="all"></span></h4></a></li>
+			<li><a href="javascript:void(0);"><h1>群组1</h1><h4 class="person">当前人数：<span class="exist"></span>&nbsp&nbsp总人数：<span class="all"></span></h4></a></li>
+			<li><a href="javascript:void(0);"><h1>群组1</h1><h4 class="person">当前人数：<span class="exist"></span>&nbsp&nbsp总人数：<span class="all"></span></h4></a></li>
+			<li><a href="javascript:void(0);"><h1>群组1</h1><h4 class="person">当前人数：<span class="exist"></span>&nbsp&nbsp总人数：<span class="all"></span></h4></a></li> -->
+		</ul>
+		<h3 id="wait-num">当前有<span></span>个群组待审核</h3>	
+	</div>
+	<script>
+		$(document).ready(function(){
+			$.ajax({
+				url:'getusergroups.action',
+				type:'get',
+				data:{},
+				dataType:'json',
+				success:function(result){
+					if(result.returncode=="1"){
+						alert("登录失效，跳转首页");
+						location.href="main.html";
+					}else if(result.returncode=="2"){
+						var tips = "<h3>您当前没有加入任何群组</h3>";
+						$('#grouplist').html($.parseHTML(tips));
+						$('#wait-num').hide();
+					}else{
+
+						var cont = "";
+						for(var k in result.group){
+							var group = result.group[k];
+							var li = "<li class='ui-child' style='display: list-item;'><a href='javascript:void(0);' class='ui-btn ui-btn-icon-right ui-icon-carat-r' group-id='"+
+								group.groupid+"'><h1>"+group.groupname+"</h1><h4 class='person'>当前人数：<span class='exist'>"+
+								group.extnum+"</span>&nbsp;&nbsp;总人数：<span class='all'>"+group.groupnum+"</span></h4></a></li>";
+							cont+=li;
+						}
+						$('#grouplist').html(cont);
+						$('#wait-num').show().find('span').text(result.auditing);
+					}
+				},
+				error:function(result){
+					alert("connect error!");
+				}
+			});
+
+			$(document).on('tap','#grouplist li a',function(){
+				var ID = $(this).attr('group-id');
+				location.href="group.html?ID="+ID;
+			});
+
+
+		});
+	</script>
+</body>
+</html>
