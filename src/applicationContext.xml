@@ -1,0 +1,278 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans
+	xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.1.xsd http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd" xmlns:tx="http://www.springframework.org/schema/tx">
+
+	<bean id="HelloAction" class="demo.action.HelloAction">
+		<property name="user" value="xiaowu"></property>
+	</bean>
+
+	<bean id="sessionFactory"
+		class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
+		<property name="configLocation"
+			value="classpath:hibernate.cfg.xml">
+		</property>
+	</bean>
+	<bean id="transactionManager"
+		class="org.springframework.orm.hibernate4.HibernateTransactionManager">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+	<tx:annotation-driven transaction-manager="transactionManager" />
+	
+	<!-- 事务处理 -->
+	<bean id="transactionInterceptor"
+		class="org.springframework.transaction.interceptor.TransactionInterceptor">
+		<property name="transactionManager">
+			<ref local="transactionManager" />
+		</property>
+		<property name="transactionAttributes">
+			<props>
+				<prop key="register">PROPAGATION_REQUIRED</prop>
+				<!--hibernate4必须配置为开启事务 否则 getCurrentSession()获取不到 -->
+				<prop key="get*">PROPAGATION_REQUIRED,readOnly</prop>
+				<prop key="find*">PROPAGATION_REQUIRED,readOnly</prop>
+				<prop key="select*">PROPAGATION_REQUIRED,readOnly</prop>
+				<prop key="query*">PROPAGATION_REQUIRED,readOnly</prop>
+				<prop key="sync*">PROPAGATION_REQUIRED</prop>
+				<prop key="finish*">PROPAGATION_REQUIRED</prop>
+				<prop key="add*">PROPAGATION_REQUIRED</prop>
+				<prop key="insert*">PROPAGATION_REQUIRED</prop>
+				<prop key="edit*">PROPAGATION_REQUIRED</prop>
+				<prop key="update*">PROPAGATION_REQUIRED</prop>
+				<prop key="save*">PROPAGATION_REQUIRED</prop>
+				<prop key="remove*">PROPAGATION_REQUIRED</prop>
+				<prop key="delete*">PROPAGATION_REQUIRED</prop>
+				<prop key="*">
+					PROPAGATION_REQUIRED,-java.lang.Exception
+				</prop>
+			</props>
+		</property>
+	</bean>
+	
+	
+	
+	<bean id="UserDAO" class="demo.dao.UserDAO">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory" />
+		</property>
+	</bean>
+	<bean id="EventDAO" class="demo.dao.EventDAO">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory" />
+		</property>
+	</bean>
+	<bean id="GroupDAO" class="demo.dao.GroupDAO">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory" />
+		</property>
+	</bean>
+	<bean id="GumapDAO" class="demo.dao.GumapDAO">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory" />
+		</property>
+	</bean>
+	<bean id="CommentDAO" class="demo.dao.CommentDAO">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory" />
+		</property>
+	</bean>
+	<bean id="EumapDAO" class="demo.dao.EumapDAO">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory" />
+		</property>
+	</bean>
+	<bean id="SysmsgDAO" class="demo.dao.SysmsgDAO">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory" />
+		</property>
+	</bean>
+	
+	<!-- Srv bean -->
+	<bean id = "userSrv" class="demo.biz.impl.UserSrvImpl">
+		<property name="userDAO" ref="UserDAO"></property>
+	</bean>
+	<bean id = "eventSrv" class="demo.biz.impl.EventSrvImpl">
+		<property name="eventDAO" ref="EventDAO"></property>
+	</bean>
+	<bean id = "groupSrv" class="demo.biz.impl.GroupSrvImpl">
+		<property name="groupDAO" ref="GroupDAO"></property>
+	</bean>
+	<bean id = "GUmapSrv" class="demo.biz.impl.GUmapSrvImpl">
+		<property name="gumapDAO" ref="GumapDAO"></property>
+		<property name="userDAO" ref="UserDAO"></property>
+	</bean>
+	<bean id = "commentSrv" class= "demo.biz.impl.CommentSrvImpl" >
+		<property name="commentDAO" ref="CommentDAO"></property>
+	</bean>
+	<bean id = "EUmapSrv" class = "demo.biz.impl.EUmapSrvImpl">
+		<property name="eumapDAO" ref="EumapDAO"></property>
+	</bean>
+	<bean id = "SysmsgSrv" class = "demo.biz.impl.SysmsgSrvImpl">
+		<property name="sysmsgDAO" ref="SysmsgDAO"></property>
+	</bean>
+	
+
+	<!-- Action bean -->
+	<bean id="AuthorityAction" class="demo.action.AuthorityAction"></bean>
+	<bean id="LogoutAction" class="demo.action.LogoutAction"></bean>
+	<bean id="LoginAction" class="demo.action.LoginAction">
+		<property name="usersrv" ref="userSrv"></property>
+	</bean>
+	<bean id="RegistAction" class="demo.action.RegistAction">
+		<property name="usersrv" ref="userSrv"></property>
+	</bean>
+	<bean id="SearchAction" class="demo.action.SearchAction">
+		<property name="eventSrv" ref="eventSrv"></property>
+	</bean>
+	<bean id="UploadimgAction" class="demo.action.UploadimgAction">
+		<property name="usersrv" ref="userSrv"></property>
+	</bean>
+	<bean id="UploadposterAction" class="demo.action.UploadposterAction">
+	</bean>
+	<bean id="UpdateimfAction" class="demo.action.UpdateimfAction">
+		<property name="userSrv" ref="userSrv"></property>
+	</bean>
+	<bean id="GetuserimfAction" class="demo.action.GetuserimfAction">
+		<property name="userSrv" ref="userSrv"></property>
+	</bean>
+	<bean id="CreatEventAction" class="demo.action.CreatEventAction">
+		<property name="eventSrv" ref="eventSrv"></property>
+		<property name="eumapSrv" ref="EUmapSrv"></property>
+		<property name="sysmsgSrv" ref="SysmsgSrv"></property>
+	</bean>
+	<bean id="GetEventsAction" class="demo.action.GetEventsAction">
+		<property name="eventSrv" ref="eventSrv"></property>
+		<property name="sysmsgSrv" ref="SysmsgSrv"></property>
+		<property name="userSrv" ref="userSrv"></property>
+	</bean>
+	<bean id="GetEventImfAction" class="demo.action.GetEventImfAction">
+		<property name="eventSrv" ref="eventSrv"></property>
+		<property name="eumapSrv" ref="EUmapSrv"></property>
+		<property name="commentSrv" ref="commentSrv"></property>
+		<property name="userSrv" ref="userSrv"></property>
+	</bean>
+	<bean id="CreatGroupAction" class="demo.action.CreatGroupAction">
+		<property name="groupSrv" ref="groupSrv"></property>
+		<property name="gumapSrv" ref="GUmapSrv"></property>
+		<property name="sysmsgSrv" ref="SysmsgSrv"></property>
+	</bean>
+	<bean id="GetsysmsgAction" class="demo.action.GetsysmsgAction">
+		<property name="sysmsgSrv" ref="SysmsgSrv"></property>
+	</bean>
+	<bean id="SetmsgstateAction" class="demo.action.SetmsgstateAction">
+		<property name="sysmsgSrv" ref="SysmsgSrv"></property>
+	</bean>
+	<bean id="DelsysmsgAction" class="demo.action.DelsysmsgAction">
+		<property name="sysmsgSrv" ref="SysmsgSrv"></property>
+	</bean>
+	<bean id="GroupusersAction" class="demo.action.GroupusersAction">
+		<property name="gumapSrv" ref="GUmapSrv"></property>
+		<property name="userSrv" ref="userSrv"></property>
+	</bean>
+	<bean id="AddgumapAction" class="demo.action.AddgumapAction">
+		<property name="gumapSrv" ref="GUmapSrv"></property>
+		<property name="groupSrv" ref="groupSrv"></property>
+	</bean>
+	<bean id="GetusergroupsAction" class="demo.action.GetusergroupsAction">
+		<property name="gumapSrv" ref="GUmapSrv"></property>
+		<property name="groupSrv" ref="groupSrv"></property>
+		
+	</bean>
+	<bean id="DelgumapAction" class="demo.action.DelgumapAction">
+		<property name="gumapSrv" ref="GUmapSrv"></property>
+		<property name="groupSrv" ref="groupSrv"></property>
+		<property name="userSrv" ref="userSrv"></property>
+	</bean>
+	<bean id="DeleumapAction" class="demo.action.DeleumapAction">
+		<property name="eumapSrv" ref="EUmapSrv"></property>
+		<property name="eventSrv" ref="eventSrv"></property>
+	</bean>
+	<bean id="DeleumapoAction" class="demo.action.DeleumapoAction">
+		<property name="eumapSrv" ref="EUmapSrv"></property>
+		<property name="eventSrv" ref="eventSrv"></property>
+		<property name="sysmsgSrv" ref="SysmsgSrv"></property>
+		<property name="userSrv" ref="userSrv"></property>
+	</bean>
+	<bean id="ShoucommentsAction" class="demo.action.ShowcommentsAction">
+		<property name="commentSrv" ref="commentSrv"></property>
+		<property name="userSrv" ref="userSrv"></property>
+	</bean>
+	<bean id="AddcommentAction" class="demo.action.AddcommentAction">
+		<property name="commentSrv" ref="commentSrv"></property>
+	</bean>
+	<bean id="GetusereventsAction" class="demo.action.GetusereventsAction">
+		<property name="eumapSrv" ref="EUmapSrv"></property>
+		<property name="eventSrv" ref="eventSrv"></property>
+	</bean>
+	<bean id="EventusersAction" class="demo.action.EventusersAction">
+		<property name="eumapSrv" ref="EUmapSrv"></property>
+		<property name="eventSrv" ref="eventSrv"></property>
+		<property name="userSrv" ref="userSrv"></property>
+	</bean>
+	<bean id="AddeumapAction" class="demo.action.AddeumapAction">
+		<property name="eumapSrv" ref="EUmapSrv"></property>
+		<property name="eventSrv" ref="eventSrv"></property>
+		<property name="sysmsgSrv" ref="SysmsgSrv"></property>
+	</bean>
+	<bean id="GetgroupimfAction" class="demo.action.GetGroupimfAction">
+		<property name="gumapSrv" ref="GUmapSrv"></property>
+		<property name="eventSrv" ref="eventSrv"></property>
+		<property name="groupSrv" ref="groupSrv"></property>
+		<property name="userSrv" ref="userSrv"></property>
+	</bean>
+	<bean id="IvtgroupmsgAction" class="demo.action.IvtgroupmsgAction">
+		<property name="sysmsgSrv" ref="SysmsgSrv"></property>
+		<property name="groupSrv" ref="groupSrv"></property>
+		<property name="userSrv" ref="userSrv"></property>
+		<property name="gumapSrv" ref="GUmapSrv"></property>
+	</bean>
+	<bean id="IvteventmsgAction" class="demo.action.IvteventmsgAction">
+		<property name="sysmsgSrv" ref="SysmsgSrv"></property>
+		<property name="eventSrv" ref="eventSrv"></property>
+		<property name="userSrv" ref="userSrv"></property>
+		<property name="eumapSrv" ref="EUmapSrv"></property>
+	</bean>
+	<bean id="DelgumapoAction" class="demo.action.DelgumapoAction">
+		<property name="gumapSrv" ref="GUmapSrv"></property>
+		<property name="sysmsgSrv" ref="SysmsgSrv"></property>
+		<property name="groupSrv" ref="groupSrv"></property>
+		<property name="userSrv" ref="userSrv"></property>
+	</bean>
+	<bean id="AccepteventAction" class="demo.action.AccepteventAction">
+		<property name="sysmsgSrv" ref="SysmsgSrv"></property>
+		<property name="eventSrv" ref="eventSrv"></property>
+		<property name="eumapSrv" ref="EUmapSrv"></property>
+	</bean>
+	<bean id="AcceptgroupAction" class="demo.action.AcceptgroupAction">
+		<property name="sysmsgSrv" ref="SysmsgSrv"></property>
+		<property name="groupSrv" ref="groupSrv"></property>
+		<property name="gumapSrv" ref="GUmapSrv"></property>
+	</bean>
+	
+	<bean id="AgreeeventAction" class="demo.action.AgreeeventAction">
+		<property name="sysmsgSrv" ref="SysmsgSrv"></property>
+		<property name="eventSrv" ref="eventSrv"></property>
+		<property name="eumapSrv" ref="EUmapSrv"></property>
+	</bean>
+	<bean id="AgreegroupAction" class="demo.action.AgreegroupAction">
+		<property name="sysmsgSrv" ref="SysmsgSrv"></property>
+		<property name="groupSrv" ref="groupSrv"></property>
+		<property name="gumapSrv" ref="GUmapSrv"></property>
+	</bean>
+	<bean id="DeleteeventAction" class="demo.action.DeleteeventAction">
+		<property name="sysmsgSrv" ref="SysmsgSrv"></property>
+		<property name="eventSrv" ref="eventSrv"></property>
+		<property name="eumapSrv" ref="EUmapSrv"></property>
+		<property name="commentSrv" ref="commentSrv"></property>
+	</bean>
+	<bean id="DeletegroupAction" class="demo.action.DeletegroupAction">
+		<property name="sysmsgSrv" ref="SysmsgSrv"></property>
+		<property name="groupSrv" ref="groupSrv"></property>
+		<property name="gumapSrv" ref="GUmapSrv"></property>
+		<property name="eventSrv" ref="eventSrv"></property>
+		<property name="eumapSrv" ref="EUmapSrv"></property>
+		<property name="commentSrv" ref="commentSrv"></property>
+	</bean>
+</beans>

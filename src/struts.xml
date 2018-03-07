@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.1//EN" "http://struts.apache.org/dtds/struts-2.1.dtd">
+<struts>
+
+	<package name="demo" namespace="/" extends="struts-default">
+		<action name="hello" class="HelloAction">
+			<result name="success">/user-setting.html</result>
+		</action>
+		<action name="authority" class="AuthorityAction">
+		</action>
+		<action name="login" class="LoginAction"></action>
+		<action name="logout" class="LogoutAction"></action>
+		<action name="regist" class="RegistAction"></action>
+		<action name="updateimf" class="UpdateimfAction"></action>
+		<action name="uploadimg" class="UploadimgAction"></action>
+		<action name="createvent" class="CreatEventAction"></action>
+		<action name="getusergroups" class="GetusergroupsAction"></action><!--creat-events.html 获取所有群组  -->
+		<action name="getevents" class="GetEventsAction"></action><!-- main.heml 获取所有活动和用户系统信息数 -->
+		<action name="groupusers" class="GroupusersAction"></action><!-- 用于邀请页获取群组相关成员 -->
+		<action name="addgumap" class="AddgumapAction"></action>
+		<action name="setmsgstate" class="SetmsgstateAction"></action>
+		<action name="delgumap" class="DelgumapAction"></action>
+		<action name="deleumap" class="DeleumapAction"></action><!-- event.html 退出群组 -->
+		<action name="deleumapo" class="DeleumapoAction"></action><!--event-member.html 踢出群组 -->
+		<action name="creatgroup" class="CreatGroupAction"></action> <!-- main.html 创建群组 -->
+		<action name="getsysmsg" class="GetsysmsgAction"></action> <!-- main.html 获取系统消息详情 -->
+		<action name="showcomments" class="ShoucommentsAction"></action><!--event.html 用户评论  --><!-- 可删 -->
+		<action name="getuserevents" class="GetusereventsAction"></action>
+		<action name="getuserimf" class="GetuserimfAction"></action>	
+		<action name="geteventimf" class="GetEventImfAction"></action>  <!--event.html 活动基本信息  -->
+		<action name="addeumap" class="AddeumapAction"></action>       <!--event.html 报名按钮  -->
+		<action name="uploadposter" class="UploadposterAction"></action><!--event.html 上传海报  -->
+		<action name="addcomment" class="AddcommentAction"></action> <!-- event.html 发表评论 -->
+		<action name="eventusers" class="EventusersAction"></action> <!-- event-member.html -->
+		<action name="getgroupimf" class="GetgroupimfAction"></action>
+		<action name="ivtgroupmsg" class="IvtgroupmsgAction"></action>
+		<action name="ivteventmsg" class="IvteventmsgAction"></action>
+		<action name="acceptevent" class="AccepteventAction"></action>
+		<action name="acceptgroup" class="AcceptgroupAction"></action>
+		<action name="delgumapo" class="DelgumapoAction"></action>
+		<action name="delsysmsg" class="DelsysmsgAction"></action>
+		<action name="search" class="SearchAction"></action>
+		<action name="agreeevent" class="AgreeeventAction"></action><!--Actions for admin  -->
+		<action name="agreegroup" class="AgreegroupAction"></action>
+		<action name="deleteevent" class="DeleteeventAction"></action>
+		<action name="deletegroup" class="DeletegroupAction"></action>
+		</package>
+	
+</struts>    
